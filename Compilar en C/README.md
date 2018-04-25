@@ -18,11 +18,13 @@ El cual se encuentra en una carpeta llamada _1/_, es decir, tendremos lo siguien
 
 Si queremos compilar este archivo, únicamente es necesario escribir el siguiente comando en la consola de Linux
 
-Y esto nos realiza la siguiente tarea
 
 ```bash
-gcc Main.c -o exe
+$ gcc Main.c -o exe
 ```
+
+
+Y esto nos realiza la siguiente tarea
 
 ![alt text](https://pbs.twimg.com/media/DbptVF2XkAA_rIT.png "Main a exe")
 
@@ -30,33 +32,39 @@ gcc Main.c -o exe
 
 
 
-Sin embargo, todo esto es un proceso resumido, en general lo que sucede en pantalla es el siguiente proceso:
+Sin embargo, todo esto es un proceso resumido, en general lo que sucede dentro de la máquina es el siguiente proceso:
 
 ![alt text](https://pbs.twimg.com/media/DbpuwfGX4AMak9w.jpg "Proceso General")
 
 Vamos entonces a detallar un poco más el proceso de compilar ```Main.c```
 
 ```bash
-gcc -c Main.c 
-gcc -o exe Main.o
+$ gcc -c Main.c 
+$ gcc -o exe Main.o
 ```
-Lo que hace la primera linea es compilar un archivo ```Main.o```, del cual el ejecutable ```exe``` **dependerá** (palabra clave), para ser generado y poder compilar todo de forma común y corriente. Es decir, tendremos lo siguiente
+
+Lo que hace la primera linea es compilar el archivo ```Main.c``` generando el archivo ```Main.o```.
+
+Una vez con este código de máquina presente, se podrá por fin crear el ejecutable ```exe``` de forma común y corriente. Es decir, se realiza;
 
 ![Generado](https://pbs.twimg.com/media/DbpzMaiX0AELPGn.png "Generado")
 ![Carpeta](https://pbs.twimg.com/media/Dbpzl3wWAAEvBH1.png "Generado")
 
-Sin embargo, este proceso es trivial hoy día, sin embargo nos servirá para entender más cosas próximamente.
+Sin embargo, este proceso es trivial hoy día, pero nos servirá para entender más cosas próximamente.
 
-Si estamos en un directorio llamado _general_ que contiene a _1_, y queremos escribir el ```exe``` para aquí, solo se debe compilar, solo es cuestión de escribir
+Si estamos en un directorio llamado _general_ que contiene a la carpeta _1/_, y queremos hacer que el ```exe``` quede en esta posición, solo se debe compilar todo de la siguiente forma:
 
 ```bash
 gcc 1/Main.c -o exe
 ```
 
 ![General](https://pbs.twimg.com/media/Dbp0PDMWkAAL7ra.png "General")
+
+Esto aplica para cualquier directorio en el que esté, nada más hay que especificar la ruta de dónde se encuentra nuestro código fuente.
+
 ### Ejemplo 2
 
-Ahora imaginese que tenemos el siguiente programa en C que llamaremos ```Mathfun.c```
+Ahora imaginese que tenemos el siguiente programa en C que llamaremos ```Mathfun.c``` cuyo único proposito es calcular un simple x^y.
 
 ```c
 #include <stdio.h>
@@ -83,15 +91,16 @@ mathfun.c:(.text+0x74): referencia a `pow' sin definir
 collect2: error: ld returned 1 exit status
 ```
 
-Esto debido a que se debe compilar añadiendo la libería explicitamente en el compilador, en este caso la _"library math"_ se llamará con el nombre ```lm```
+Esto debido a que se debe compilar _mencionando_ la libería explicitamente en el compilador, en este caso la _"library: math"_ se llamará con el nombre ```lm```
 
 ```bash
-gcc Mathfun.c -o exe -lm
+$ gcc Mathfun.c -o exe -lm
 ```
 
 ### Ejemplo 3
 
 Tenemos un archivo en C que llamaremos ```Ultimate.c```
+
 ```c
 #include "lib.h"
 int main(void) {
@@ -100,14 +109,17 @@ int main(void) {
   return 0;
 }
 ```
+
 Como podemos ver, requiere una librería personal llamada ```lib.h```, la cual crearemos en el mismo directorio y tendrá el siguiente contenido
+
 ```c
 #include <stdio.h>
 #include <math.h>
 
 float spec_pow(void);
 ```
-Toda cabecera (*.h) necesita su fuente (*c) la cual tendrá el siguiente contenido, un ```lib.c```
+
+Toda cabecera (*.h) necesita su fuente (*.c), en este caso ```lib.c```, el cual tendrá el siguiente contenido,
 
 ```c
 #include <stdio.h>
@@ -126,8 +138,8 @@ float spec_pow(void){
 }
 ```
 
-Ya que este programa utiliza la librería ```math.c```, es necesario incluir el ```-lm``` como vimos anteriormente, y como tiene una librería personal, lo único que hay que hacer es compilar el ```lib.c```
+Ya que este programa utiliza la librería ```math.c``` para calcular potencias otra vez, es necesario incluir el ```-lm``` como vimos anteriormente, y como tiene una librería personal, lo único que hay que hacer es compilar el ```lib.c``` junto al código fuente del programa principal.
 
 ```bash
-gcc lib.c ultimate.c -o exe -lm
+$ gcc lib.c ultimate.c -o exe -lm
 ```
