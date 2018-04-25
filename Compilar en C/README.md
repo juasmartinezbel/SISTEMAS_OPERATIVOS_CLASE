@@ -13,6 +13,7 @@ int main(void) {
 }
 ```
 El cual se encuentra en una carpeta llamada _1/_, es decir, tendremos lo siguiente:
+
 ![alt_Text](https://pbs.twimg.com/media/DbpxRydXUAIpGHX.png "Main.c en Carpeta")
 
 Si queremos compilar este archivo, únicamente es necesario escribir el siguiente comando en la consola de Linux
