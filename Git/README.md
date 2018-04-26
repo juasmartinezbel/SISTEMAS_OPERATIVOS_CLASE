@@ -233,7 +233,7 @@ Al final, la estructura de lo que hicimos quedará de esta forma:
 
 ![gitignore](https://pbs.twimg.com/media/DbrN7hFWAAEBUsX.png)
 
-Ahora digamos que no estamos satisfechos con esto que vamos a empacar, deseamos retirar los archivos que vamos a quitar, aquí se nos presentan el comando ```$ git reset```
+Ahora digamos que no estamos satisfechos con esto que vamos a empacar, deseamos retirar los archivos que ya pusimos, aquí se nos presentan el comando ```$ git reset```
 
 Sacar solo un archivo del stage, ya sea para modificar o algo:
 ``` console
@@ -253,7 +253,75 @@ $ git reset
 ```
 ![u](https://pbs.twimg.com/media/DbrN1f2XUAAjO22.png)
 
+## Commits
+
+La parte más interesante de Git, sin duda, son los **commits**, git basa toda su arquitectura en estos pequeños momentos en el tiempo.
+
+Para poder guardar estos commits hay que tener en cuenta dos cosas:
+
+1. Tiene que haber SIEMPRE algo en el stage.
+2. Ver que no hayan commits delante de nosotros en la nube.
+
+Trataremos este segundo más adelante. Considerando que tenemos todo listo, lo único que debemos hacer es escribir en la terminal ```$ git commit``` y nos saldrá una pantalla en _Nano_ donde personalizaremos nuestro mensaje de commit y en comentarios la descripción de dicho ```$git status``` y otra información commit
+
+Existe una versión resumida de hacer esto, que es escribiendo ```$ git commit -m "Titulo del Commit"```
+```console
+$ git add --all
+
+$ git status
+En la rama master
+
+Commit inicial
+
+Cambios para hacer commit:
+  (use «git rm --cached <archivo>...» para sacar del stage)
+
+	nuevo archivo: .gitignore
+	nuevo archivo: k
+	nuevo archivo: u
+	nuevo archivo: v
+	
+	
+$ git commit -m "Todo añadido"
+[master (root-commit) 31549bf] Todo añadido
+ 4 files changed, 183 insertions(+)
+ create mode 100644 .gitignore
+ create mode 100644 k
+ create mode 100644 u
+ create mode 100644 v
+ 
+ 
+$ git status
+En la rama master
+nothing to commit, working directory clean
+
+
+$ git log
+commit 31549bfd8a795b6b33bc03ac05ffa68062f64efc
+Author: zebitas <juasmartinezbel@unal.edu.co>
+Date:   Wed Apr 25 21:41:27 2018 -0500
+
+    Todo añadido
+    
+    
+$ git log --stat
+commit 31549bfd8a795b6b33bc03ac05ffa68062f64efc
+Author: zebitas <juasmartinezbel@unal.edu.co>
+Date:   Wed Apr 25 21:41:27 2018 -0500
+
+    Todo añadido
+
+ .gitignore | 2 ++
+ k          | 43 +++++++
+ u          | 104 ++++++++++++
+ v          | 34 +++++++
+ 4 files changed, 183 insertions(+)
+
+```
+
+![commit](https://pbs.twimg.com/media/DbrS7hQXkAAc5Dv.png)
 
 # CONTINUARÁ
+```
 
 
