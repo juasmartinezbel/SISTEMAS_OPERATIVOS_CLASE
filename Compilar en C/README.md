@@ -19,7 +19,7 @@ El cual se encuentra en una carpeta llamada _1/_, es decir, tendremos lo siguien
 Si queremos compilar este archivo, únicamente es necesario escribir el siguiente comando en la consola de Linux
 
 
-```bash
+```console
 $ gcc Main.c -o exe
 ```
 
@@ -38,7 +38,7 @@ Sin embargo, todo esto es un proceso resumido, en general lo que sucede dentro d
 
 Vamos entonces a detallar un poco más el proceso de compilar ```Main.c```
 
-```bash
+```console
 $ gcc -c Main.c 
 $ gcc -o exe Main.o
 ```
@@ -54,13 +54,24 @@ Sin embargo, este proceso es trivial hoy día, pero nos servirá para entender m
 
 Si estamos en un directorio llamado _general_ que contiene a la carpeta _1/_, y queremos hacer que el ```exe``` quede en esta posición, solo se debe compilar todo de la siguiente forma:
 
-```bash
+```console
 gcc 1/Main.c -o exe
 ```
 
 ![General](https://pbs.twimg.com/media/Dbp0PDMWkAAL7ra.png "General")
 
 Esto aplica para cualquier directorio en el que esté, nada más hay que especificar la ruta de dónde se encuentra nuestro código fuente.
+
+De resto es lo que ya todos conocemos, ejecutar:
+
+```console
+$./exe
+
+--------------------
+
+Hola Mundo
+--------------------
+```
 
 ### Ejemplo 2
 
@@ -85,7 +96,7 @@ int main(void) {
 
 Debido a que usa una librería externa, **algunos** compiladores intenterán ejecutarlo y fallarán debido a que usan una librería externa llamada ```math.h```  y saldrá el siguiente error
 
-```bash
+```console
 /tmp/ccF0gb0o.o: En la función `main':
 mathfun.c:(.text+0x74): referencia a `pow' sin definir
 collect2: error: ld returned 1 exit status
@@ -93,9 +104,16 @@ collect2: error: ld returned 1 exit status
 
 Esto debido a que se debe compilar _mencionando_ la libería explicitamente en el compilador, en este caso la _"library: math"_ se llamará con el nombre ```lm```
 
-```bash
-$ gcc Mathfun.c -o exe -lm
+```console
+$ gcc Mathfun.c -o exe2 -lm
+$ ./exe2
+Inserte x: 2
+Inserte y: 4
+
+Resultado: 16.00
 ```
+
+
 
 ### Ejemplo 3
 
@@ -140,6 +158,11 @@ float spec_pow(void){
 
 Ya que este programa utiliza la librería ```math.c``` para calcular potencias otra vez, es necesario incluir el ```-lm``` como vimos anteriormente, y como tiene una librería personal, lo único que hay que hacer es compilar el ```lib.c``` junto al código fuente del programa principal.
 
-```bash
-$ gcc lib.c ultimate.c -o exe -lm
+```console
+$ gcc lib.c ultimate.c -o exe3 -lm
+$ ./exe3
+Inserte x: 4
+Inserte y: 3
+
+Resultado: 64.00
 ```
