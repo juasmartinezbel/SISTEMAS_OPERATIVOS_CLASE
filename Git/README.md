@@ -56,7 +56,7 @@ Date:   Sat Apr 21 20:57:16 2018 -0500
 
     Iniciando Mapa
 
- M              |  70 +++
+ M  |  70
  1 files changed, 70 insertions(+)
  
 commit bf015fef7e9d0e0c214333e020e0e17ea24ec49e
@@ -75,8 +75,8 @@ Date:   Thu Apr 19 17:09:14 2018 -0500
 
     Triangulo generado
     
- T              |  20 +++
- A              |  30 +++-
+ T  |  20
+ A  |  30 +++-
  2 files changed, 45 insertions(+), 5 deletions(-)
  
 commit ce7fc08884cfaa085f07e74f9503ddeda21a7180
@@ -85,9 +85,9 @@ Date:   Sat Apr 14 10:37:51 2018 -0500
 
     Archivos creados
     
- A             |  7 +++
- B             |  10 +++
- C             |  16 +++
+ A  |  7 
+ B  |  10
+ C  |  16
  3 files changed, 33 insertions(+)
 ```
 ## Creando el repositorio.
@@ -262,9 +262,10 @@ Para poder guardar estos commits hay que tener en cuenta dos cosas:
 1. Tiene que haber SIEMPRE algo en el stage.
 2. Ver que no hayan commits delante de nosotros en la nube.
 
-Trataremos este segundo más adelante. Considerando que tenemos todo listo, lo único que debemos hacer es escribir en la terminal ```$ git commit``` y nos saldrá una pantalla en _Nano_ donde personalizaremos nuestro mensaje de commit y en comentarios la descripción de dicho ```$git status``` y otra información commit
+Trataremos este segundo más adelante. Considerando que tenemos todo listo, lo único que debemos hacer es escribir en la terminal ```$ git commit``` y nos saldrá una pantalla en _Nano_ donde podremos escribir nuestro _Título de commit_ y en comentarios la descripción de dicho ```$git status``` y otra información sobre este.
 
-Existe una versión resumida de hacer esto, que es escribiendo ```$ git commit -m "Titulo del Commit"```
+Existe una versión resumida de hacer esto sin necesidad de que se abra la pantalla del _Nano_ (o del editor configurado), que es escribiendo ```$ git commit -m "Titulo del Commit"```
+
 ```console
 $ git add --all
 
@@ -321,7 +322,102 @@ Date:   Wed Apr 25 21:41:27 2018 -0500
 
 ![commit](https://pbs.twimg.com/media/DbrS7hQXkAAc5Dv.png)
 
-# CONTINUARÁ
+En resumen, hacer commits no es complicado, solo hay que tener mucho cuidado a la hora de trabajar, si no hay problemas, no hay que requerir de ```resets``` o ```.gitignore``` ni nada de eso. Se volverá rutina **añadir trabajo al stage** para luego registrarlo en un **commit**
+
+```console
+*Trabajar*
+$ git add --all
+$ git commit -m "Commit 01"
+
+*Trabajar*
+$ git add --all
+$ git commit -m "Commit 02"
+
+*Trabajar*
+$ git add --all
+$ git commit -m "Commit 03"
+
+*Trabajar*
+$ git add --all
+$ git commit -m "Commit 04"
+
+*Trabajar*
+$ git add --all; git commit -m "Commit 05"
+
+*Trabajar*
+$ git add -A; git commit -m "Commit 06"
+
+*Trabajar*
+$ git add -A && git commit -m "Commit 07"
+
+*Trabajar*
+$ git add . && $git commit -m "Commit 08"
+
+```
+
+Y así de simple fue hacer 8 commits de largas y largas horas de trabajo arduo, todo guardado y reservado con solo dos lineas de comandos, o incluso menos, dependiendo de qué tan comodo te sientas. Pudieron ser minutos, horas, días o semanas, pero si deseamos, podemos volver en el tiempo a visitar esos commits que hicimos.
+
+## Volviendo en el tiempo: Resets, Reverts y Checkouts
+
+Existen 3 niveles para volver a un estado en el tiempo, iremos vistando de lo más duro a lo más suave, por referirnos de alguna manera a estos momentos, vamos a visitar cada una.
+
+## Resets:
+
+Reset es regresar físicamente a un commit anterior en el tiempo, borrando los commits que hicimos después del cual deseamos volver. Pero no se asusten, en este tipo de situaciones hay 3 formas de hacer resets para asegurar una mejor forma de reseteo.
+
+Tenemos el siguiente árbol de commits con los logs correspondientes:
+
+```console
+$ git log --stat
+commit d16ca314f1e9667b27fd849616449ba98b7c056f
+Author: zebitas <juasmartinezbel@unal.edu.co>
+Date:   Thu Apr 26 09:07:28 2018 -0500
+
+    Se han implementado funciones
+
+ A         | 60 +++++-
+ B         | 20 +-
+ C         | 20 ++
+ D         | 10 +
+ F         | 10 +
+ funciones | 10 +
+ 6 files changed, 110 insertions(+), 20 deletions(-)
+
+commit 5c7759672bb300dc33303040317962ef5dffc97e
+Author: zebitas <juasmartinezbel@unal.edu.co>
+Date:   Thu Apr 26 09:06:00 2018 -0500
+
+    Se ha generado el Árbol
+
+ Arbol.py |  50
+ C        | 100 ++++++++++
+ 2 files changed, 150 insertions(+)
+
+commit 7901658d4701e25919bf7dabddb83964c9fb7941
+Author: zebitas <juasmartinezbel@unal.edu.co>
+Date:   Thu Apr 26 09:05:19 2018 -0500
+
+    Se ha añadido el README
+
+ A         | 120 ++++++++++++
+ B         | 150 +++++++++++++++
+ README.md |  200
+ 3 files changed, 470 insertions(+)
+
+commit d700d7273017ed58476626e6a07b607f6d6e3cf4
+Author: zebitas <juasmartinezbel@unal.edu.co>
+Date:   Thu Apr 26 09:02:35 2018 -0500
+
+    Archivos creados
+
+ A | 100
+ B | 100
+ C | 100
+ D | 100
+ F | 100
+ 5 files changed, 100 insertions(+), 0 deletions(-)
+```
+
 ```
 
 
