@@ -371,7 +371,7 @@ Tenemos el siguiente árbol de commits con los logs correspondientes:
 $ git log --stat
 commit d16ca314f1e9667b27fd849616449ba98b7c056f
 Author: zebitas <juasmartinezbel@unal.edu.co>
-Date:   Thu Apr 26 09:07:28 2018 -0500
+Date:   Thu Apr 26 19:07:28 2018 -0500
 
     Se han implementado funciones
 
@@ -385,7 +385,7 @@ Date:   Thu Apr 26 09:07:28 2018 -0500
 
 commit 5c7759672bb300dc33303040317962ef5dffc97e
 Author: zebitas <juasmartinezbel@unal.edu.co>
-Date:   Thu Apr 26 09:06:00 2018 -0500
+Date:   Thu Apr 26 13:16:00 2018 -0500
 
     Se ha generado el Árbol
 
@@ -395,7 +395,7 @@ Date:   Thu Apr 26 09:06:00 2018 -0500
 
 commit 7901658d4701e25919bf7dabddb83964c9fb7941
 Author: zebitas <juasmartinezbel@unal.edu.co>
-Date:   Thu Apr 26 09:05:19 2018 -0500
+Date:   Thu Apr 26 12:05:19 2018 -0500
 
     Se ha añadido el README
 
@@ -404,7 +404,7 @@ Date:   Thu Apr 26 09:05:19 2018 -0500
  README.md |  200
  3 files changed, 470 insertions(+)
 
-commit d700d7273017ed58476626e6a07b607f6d6e3cf4
+commit 001
 Author: zebitas <juasmartinezbel@unal.edu.co>
 Date:   Thu Apr 26 09:02:35 2018 -0500
 
@@ -418,6 +418,157 @@ Date:   Thu Apr 26 09:02:35 2018 -0500
  5 files changed, 100 insertions(+), 0 deletions(-)
 ```
 
+![commits](https://pbs.twimg.com/media/DbuYCtRWkAE84qG.png)
+
+Vamos a entonces a analizar los diferentes tipos de reset aplicados a este repositorio:
+
+#### SOFT
+
+Un soft reset se hace para volver a un estado anterior, pero que todos los estados queden en stage. Este tipo de reset se utiliza para cuando se nos olvidó agregar un cambio al commit.
+
+```console
+$git reset --soft id_commit_a_regresar
+```
+ Por ejemplo, digamos que se nos olvidó agregar al ```commit 004```, debemos entonces volver al ```commit 003```, lo único que debemos hacer es escribir el siguiente commando:
+ 
+```console
+$git reset --soft 5c7759672bb300dc33303040317962ef5dffc97e #id del commit 003
+```
+Y si escribimos el comando ```$ git status``` podemos ver que los elementos efectivamente se encuentran en stage:
+
+```console
+$ git status
+En la rama master
+Cambios para hacer commit:
+  (use «git reset HEAD <archivo>...» para sacar del stage)
+
+	modificado:    A
+	modificado:    B
+	modificado:    C
+	modificado:    D
+	modificado:    F
+	nuevo archivo: funciones
+
+
+```
+
+![commit](https://pbs.twimg.com/media/DbuZZoYX0AAThXd.png)
+
+Estos resets pueden ir más allá de un solo commit, si queremos volver no al ```commit 003``` sino al ```commit 002``` lo único que cambia es la id referenciada en el reset
+
+```console
+$git reset --soft 7901658d4701e25919bf7dabddb83964c9fb7941
+```
+
+![commit](https://pbs.twimg.com/media/DbuZn-1XcAA4BJH.png)
+
+Los cambios que se hicieron después sobrescriben el commit más antiguo, es decir, la versión de ```C``` del ```commit 004``` sobrescribe a la del ```commit 003```
+
+### Mixed 
+Mixed funciona similar a soft, en el que el reset no descarta los cambios, sino que los deja guardados en algún lado, en este caso, no los tiene ya puestos en stage.
+
+ 
+```console
+$git reset --mixed 5c7759672bb300dc33303040317962ef5dffc97e
+```
+
+ 
+```console
+$git status
+En la rama master
+Cambios no preparados para el commit:
+  (use «git add <archivo>...» para actualizar lo que se confirmará)
+  (use «git checkout -- <archivo>...» para descartar cambios en el directorio de trabajo)
+
+	modificado:    A
+	modificado:    B
+	modificado:    C
+	modificado:    D
+	modificado:    F
+
+Archivos sin seguimiento:
+  (use «git add <archivo>...» para incluir en lo que se ha de confirmar)
+
+	funciones
+
+no hay cambios agregados al commit (use «git add» o «git commit -a»)
+```
+![mixed](https://pbs.twimg.com/media/DbubPIEWsAYUrzN.png)
+
+### Hard
+
+El hard reset, o el reset de la desesperación, es un reset aun más duro. Si ejecutamos un hard reset al ```commit 003```, todos los commits después de este desaparecerán, incluyendo su contenido.
+
+```console
+$git reset --hard 5c7759672bb300dc33303040317962ef5dffc97e
+```
+```console
+$ git status
+En la rama master
+nothing to commit, working directory clean
+```
+
+![hard](https://pbs.twimg.com/media/DbuchPNWkAMxXil.png)
+
+O incluso si estamos en ```commit 004``` y decidimos hacer hard a ```commit 002```, lo único que cambia es el id en el comando
+
+```console
+$git reset --hard 7901658d4701e25919bf7dabddb83964c9fb7941
+```
+
+![hard](https://pbs.twimg.com/media/Dbucs8UX4AAxbqe.png)
+
+## Revert
+
+Como su nombre lo indica, reversa los cambios que se tienen en un commit. Luego de haber eliminado a ```commit 004``` en el ejemplo pasado, nos queda este arbol
+
+![hard](https://pbs.twimg.com/media/DbuchPNWkAMxXil.png)
+
+Sin embargo, quiero deshacer los cambios en  ```commit 003```, pero quiero mantener a este commit en el tiempo, o quizás está en la nube y no puedo hacerle reset, aquí entra  ```revert```, lo único que hay que hacer es ejecutar el comando ```$ git revert id```, donde id es el commit que queremos revertir.
+
+```console
+$ git revert 5c7759672bb300dc33303040317962ef5dffc97e
+[master 4e400a0] Revert "Se ha generado el Árbol"
+ 2 files changed, 150 deletions(-)
+ delete mode 100644 Arbol.py
+```
+
+Este **revert** es un commit por sí mismo, por lo tanto el nuevo árbol se verá de esta forma:
+
+![revert](https://pbs.twimg.com/media/DbufR3SW0AEkcgR.png)
+
+## Checkout
+
+Hay una forma de volver en el tiempo sin necesidad de pedrer lo que se ha hecho luego, y es con un **checkout**.
+
+Acá se nos introduce el concepto de **Cabeza** o **HEAD**, que es en dónde nos encontramos parados en el árbol, usualmente, siempre es en el último commit hecho
+
+![revert](https://pbs.twimg.com/media/Dbufw9qX4AEXQ-8.png)
+
+Para volver en el tiempo, únicamente debemos escribir el comando ```$ git checkout id``` en donde id es el id al que queremos volver, y una vez parados ahí, los archivos serán exactamente igual a como eran en ese momento del tiempo, pero no se podrán modificar. Solo mirar o crear ramas, que veremos más adelante.
+
+```console
+$ git checkout 5c7759672bb300dc33303040317962ef5dffc97e
+Note: checking out '5c7759672bb300dc33303040317962ef5dffc97e'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by performing another checkout.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -b with the checkout command again. Example:
+
+  git checkout -b <new-branch-name>
+
+HEAD se encuentra en 5c77596... Se ha generado el Árbol
+```
+
+![HEAD](https://pbs.twimg.com/media/DbugtuDXUAECqps.png)
+
+Para volver al tope de todo, solo debemos escribir:
+```console
+$ git checkout master
 ```
 
 
+```
