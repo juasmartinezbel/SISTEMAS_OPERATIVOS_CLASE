@@ -169,7 +169,7 @@ gcc -o exe Main.o
 
 ![after](https://pbs.twimg.com/media/DbqnnAYXkAAm2OI.png "after")
 
-Con estas acciones incluso podemos ejecutar nuestro programa, siempre y cuando tengamos nuestras dependencias claras, en este caso, el programa no podrá ejecutarse si ```exe``` no existe. Y como no va a generar nada más de interés, podemos llamarla como queramos, en este caso si algo llamemosla "paquita".
+Con estas posibilidades que da Make, incluso podemos ejecutar nuestro programa usando el Makefile, siempre y cuando tengamos nuestras dependencias claras, en este caso, el programa no podrá ejecutarse si ```exe``` no existe. Y como no va a generar nada más de interés, podemos llamarla como queramos, en este caso si algo llamemosla "paquita" porque así lo dijeron en clase.
 
 ```make
 #Make:
@@ -195,6 +195,7 @@ Hola Mundo
 ```
 
 El Makefile siempre intentará ejecutar la primera tarea que se le presenta al archivo, la que está en la parte superior, y claramente sus dependencias.
+
 
 ```console
 $ make
