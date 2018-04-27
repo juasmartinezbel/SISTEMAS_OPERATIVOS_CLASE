@@ -1,16 +1,16 @@
 # Contenido
-1. Make
-2. Tareas y Estructura
-    2.1. Objetivo
-    2.2. Dependencias
-    2.3. Comandos
-3. Pongamonos Serios
-4. Makes para los demás ejemplos
-    4.1. Ejemplo 2
-    4.2. Ejemplo 3
-    4.3. Caso fuerte
-5. Variables
-6. Comentarios Finales
+* Make
+* Tareas y Estructura
+    * Objetivo
+    * Dependencias
+    * Comandos
+* Pongamonos Serios
+* Makes para los demás ejemplos
+    * Ejemplo 2
+    * Ejemplo 3
+    * Caso fuerte
+* Variables
+* Comentarios Finales
 
 # Make
 Make es una utilidad para automatizar la compilación de programas y librerías, así como automatizar la ejecución de comandos en general.
