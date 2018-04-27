@@ -2,7 +2,7 @@
 
 Antes de comenzar, deberán tener en cuenta las siguientes convenciones, no se asusten, ya veremos de que trata cada una.
 
-![legends](https://pbs.twimg.com/media/Dbq7P2LX0AAke4o.png)
+![legends](https://pbs.twimg.com/media/DbyOPZqXkAELBcC.png)
 
 # Git
 
@@ -570,5 +570,359 @@ Para volver al tope de todo, solo debemos escribir:
 $ git checkout master
 ```
 
+## Ramas
+
+#### Crear y unir ramas
+Ahora hablaremos de un aspecto fundamental en Git, y son las bifurcaciones para realizar tareas. Si bien existe [terminología especifica para realizar un trabajo más formal y prácticas ágiles](http://aprendegit.com/git-flow-la-rama-develop-y-uso-de-feature-branches/), no las trataremos en este documento, acá solo aprenderemos lo fundamental, pasitos de bebé, **no se pedirá el uso obligatorio de ramas** como probablemente les haya tocado en otras materias, pero es recomendable.
+
+Todo el tiempo hemos estado sobre una rama llamada "master", nuestra linea de trabajo principal, sin embargo, si deseamos crear un flujo de trabajo alterno para no interrumpir el trabajo de los demás si vamos a trabajar en otra cosa, o una tarea secundaria que no estamos seguros que tan bien resulte y queremos dejar a master solo para los cambios fijos.
+
+Para crear una rama, lo único que debemos hacer es inicializar una rama, en el punto del tiempo en que nos encontremos (La cabeza debe estar en el punto donde quieras inicializar la rama) y escriremos:
+```console
+$ git branch nombre_rama
+```
+Y con eso se habrá creado nuestra nueva rama.
+
+![rama](https://pbs.twimg.com/media/DbyP_L6X0AA4ulq.png)
+
+Veremos como funciona... ahora.
+
+Supongamos que en su espacio de trabajo tenemos este árbol
+
+![arbol](https://pbs.twimg.com/media/DbyRnueWAAAClmj.png)
+
+Donde Main.c tiene el siguiente contenido:
+
+```c
+#include <stdio.h>
+
+int main(void) {
+  int x=6;
+  int y=10;
+  printf("\n");
+  return 0;
+}
+```
+
+Ahora supongamos que usted y su pareja necesitan hacer una función ```suma(x,y)``` y una ```resta(x,y)```. Usted confía que su compañero hará un buen trabajo, así que usted creará una nueva rama llamada ```resta```.
+
+```console
+$ git branch resta
+```
+
+Tendremos esto entonces:
+
+![branch](https://pbs.twimg.com/media/DbyS7nhWAAENapd.png)
+
+Para ver todas las ramas creadas, usted nada más debe escribir ```$ git branch``` a secas.
+
+
+Su compañero comenzará a trabajar en la función suma.
+
+```c
+#include <stdio.h>
+int suma(int x, int y){
+    int a=x;
+    int b=y;
+    int c=a+b;
+	return c;
+}
+int main(void) {
+  int x=6;
+  int y=10;
+  printf("\n");
+  return 0;
+}
+```
+
+![suma](https://pbs.twimg.com/media/DbyUVdiW4AE_hBt.png)
+
+Y usted en la función resta, aunque claro, todavía no se ha parado en la rama ```resta```, nada más debe escribir:
 
 ```
+$ git checkout resta
+Switched to branch 'resta'
+```
+
+O si desea crear una rama y de una vez pararse ahí
+
+```
+$git checkout -b resta
+Switched to branch 'resta'
+```
+
+
+![resta](https://pbs.twimg.com/media/DbyU3i7XcAA3fVI.png)
+
+**Nota**: Este cambio de checkout será posible siempre y cuando no hayan cambios conflictivos sin guardar, ya veremos este concepto más adelante.
+
+Y ahora pasamos a modificar.
+
+```c
+#include <stdio.h>
+int main(void) {
+  int x=6;
+  int y=10;
+  printf("\n");
+  return 0;
+}
+
+int resta(int x, int y){
+    int i=x;
+    int j=y;
+    int k=i-j;
+	return k;
+}
+```
+
+Ambos hacen commit y ya. Sin embargo, usted no podrá ver los cambios que hay en otras ramas, solo del momento en que se creó su rama de para abajo, y claro, todos los commits de su respectiva rama. Su compañero tampoco podrá ver que cambios ha hecho usted, pero existen.
+
+Si desea verlas todas, el comando ```$git log --all``` es el indicado
+
+```console
+$ git log --all
+commit 05c1e3bf941e12b7aeb1d3ad37eafd3383313020
+Author: zebitas <juasmartinezbel@unal.edu.co>
+Date:   Fri Apr 27 06:28:32 2018 -0500
+
+    resta creada
+
+commit 863e4b5569ae3994e2799863615eef626d4fefa3
+Author: zebitas <juasmartinezbel@unal.edu.co>
+Date:   Fri Apr 27 06:26:35 2018 -0500
+
+    suma creada
+
+commit ddbf75f142320e7830ea35739c353982b7c9aaec
+Author: Unknown <juasmartinezbel@unal.edu.co>
+Date:   Fri Apr 27 06:16:33 2018 -0500
+
+    Main changed
+```
+
+![all](https://pbs.twimg.com/media/DbyVr06WsAYgZ9b.png)
+
+Es hora, entonces, de incorporar los cambios, es supremamente sencillo... siempre y cuando hayan hecho las cosas bien. En este caso, todo debería salir bien. 
+
+Lo primero que debemos hacer es pararnos en la rama padre/rama donde queremos incorporar todos los cambios, es decir, a master.
+
+Y luego escribir el siguiente comando:
+
+```console
+$ git merge resta -m "Merge resta into master"
+Automezclado main.c
+Merge made by the 'recursive' strategy.
+ Main.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+```
+
+Como ya sabemos, el ```-m``` es para evitar que nos aparezca la pantalla extra de _Nano_, ya que sí, **Los merge cuentan como un commits hechos y derechos**, bien podría ser ```$ git merge resta ``` a secas y daría el mismo resultado.
+
+Y ahora podemos verlo todo
+```console
+$ git log
+commit e1ec067eef2c1c32277d5c78605fdaf5f91d4243
+Merge: 863e4b5 05c1e3b
+Author: zebitas <juasmartinezbel@unal.edu.co>
+Date:   Fri Apr 27 06:46:19 2018 -0500
+
+    Merge resta into master
+
+commit 05c1e3bf941e12b7aeb1d3ad37eafd3383313020
+Author: zebitas <juasmartinezbel@unal.edu.co>
+Date:   Fri Apr 27 06:28:32 2018 -0500
+
+    resta creada
+
+commit 863e4b5569ae3994e2799863615eef626d4fefa3
+Author: zebitas <juasmartinezbel@unal.edu.co>
+Date:   Fri Apr 27 06:26:35 2018 -0500
+
+    suma creada
+
+```
+
+![merge](https://pbs.twimg.com/media/DbyZeGaWkAEU2fG.png)
+
+Y el producto final será:
+
+```c
+#include <stdio.h>
+
+int suma(int x, int y){
+	int a=x;
+    int b=y;
+    int c=a+b;
+	return c;
+}
+
+int main(void) {
+  int x=6;
+  int y=10;
+  printf("\n");
+  return 0;
+}
+
+int resta(int x, int y){
+    int i=x;
+    int j=y;
+    int k=i-j;
+	return k;
+}
+```
+
+### Conflictos
+Sin embargo la vida no es color de rosa, muchas veces se producirán algo llamado **conflictos** y la razón de porque la coordinación es importante. Cuando se trabaja en ramas, es importante elegir diferentes secciones de código a trabajar, diferentes archivos, diferentes carpetas, nunca trabajar sobre el mismo, sin embargo a veces no tenemos opción.
+
+Supongamos que en el ejemplo anterior, no escribimos resta debajo de main, sino exactamente en el mismo lugar donde nuestro compañero escribió su función suma
+
+```c
+#include <stdio.h>
+
+int resta(int x, int y){
+	int i=x;
+    int j=y;
+    int k=i-j;
+	return k;
+
+}
+
+int main(void) {
+  int x=6;
+  int y=10;
+  printf("\n");
+  return 0;
+}
+```
+
+El arbol y todo sigue exactamente igual hasta este punto, pero cuando deseamos hacer merge, sucederá lo siguiente:
+```console
+$ git merge resta
+Automezclado Main.c
+CONFLICTO(contenido): conflicto de fusión en Main.c
+Automatic merge failed; fix conflicts and then commit the result.
+```
+
+En este caso, Git nos arrojó un error de conflicto, ¿qué sucedió?, entremos a la función Main.c para veriguarlo
+
+```c
+#include <stdio.h>
+
+<<<<<<< HEAD
+int suma(int x, int y){
+	int a=x;
+	int b=y
+	int c=a+b;
+	return c;
+}
+=======
+int resta(int x, int y){ 
+  int i=x; 
+  int j=y 
+  int k=i-j; 
+  return k; 
+} 
+>>>>>>> resta
+
+int main(void) {
+  int x=6;
+  int y=10;
+  printf("\n");
+  return 0;
+}
+```
+
+Los símbolos extraños nos muestran una división de dónde está el conflicto, 
+lo único que debemos hacer para solucionar este conflicto es quitar y dejar las lineas que queramos (y todo eso de HEAD, resta y ======), en este caso no es la gran cosa, es solo **una función** en **un archivo**, nada más es quitar esos símbolos, **asegurarse de que todo se vea en orden** guardar y hacer commit.
+
+```c
+#include <stdio.h>
+
+int suma(int x, int y){
+	int a=x;
+	int b=y
+	int c=a+b;
+	return c;
+}
+int resta(int x, int y){ 
+  int i=x; 
+  int j=y 
+  int k=i-j; 
+  return k; 
+} 
+
+int main(void) {
+  int x=6;
+  int y=10;
+  printf("\n");
+  return 0;
+}
+```
+
+```console
+$ git merge restaAutomezclado Main.c
+CONFLICTO(contenido): conflicto de fusión en Main.c
+Automatic merge failed; fix conflicts and then commit the result.
+
+$ gedit Main.c
+
+$ git add -A; git commit -m "Merge resta into master. Conflict resolved"
+[master 4b524ab] Merge resta into master. Conflict resolved
+```
+
+Y así se soluciona. Pero estos conflictos pueden ser muy grandes, pueden estar en múltiples archivos, multiples lineas de código, etc. que hacer el proceso general puede terminar siendo un dolor de cabeza. Para esto existen herramientas para ayudar a agilizar este proceso, una de ellas se llama **GitKraken**, donde a la hora de hacer merge, deja seleccionar y ver más detalladamente qué archivos y secciones de código tienen este conflicto y seleccionar más facilmente qué entra y qué sale
+
+![gk](https://pbs.twimg.com/media/DbymYSfWsAAjLLP.jpg)
+
+![gk](https://pbs.twimg.com/media/DbymYSeX0AERnuX.jpg)
+
+Hablaré de esta herramienta más adelante.
+
+El mensaje general queda:
+
+### Mucho cuidado con respecto a las secciones y cómo vayan a trabajar.
+
+Repartanse código con cuidado, o dividan bien las secciones en dónde van a trabajar. 
+
+Si trabajan en el mismo archivo, hay formas de dividir el área de trabajo, ya sea inicializando las funciones en las que trabajarán después antes de hacer la rama.
+
+```c
+#include <stdio.h>
+
+int suma(){
+	return 0;
+}
+
+int resta(){
+	return 0;
+}
+
+int main(void) {
+  int x=6;
+  int y=10;
+  printf("\n");
+  return 0;
+}
+```
+
+O comentando una linea que divida el documento y cada rama sepa dónde va a trabajar.
+
+```c
+#include <stdio.h>
+
+//Suma:
+
+//Resta:
+
+int main(void) {
+  int x=6;
+  int y=10;
+  printf("\n");
+  return 0;
+}
+```
+Y otras formas más creativas de saber que hará qué antes de dividir el árbol. A veces es inevitable, quizás alguien borró por accidente una linea que otro usaba o ambos llamaron una variable que cumple la misma tarea con otro nombre, pero siempre tener a la mano qué dejar a la hora de que hayan conflictos.
+
+```
+
+
