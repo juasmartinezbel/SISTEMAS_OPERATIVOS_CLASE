@@ -1,27 +1,27 @@
 # Tabla de Contenido:
 
-1. Convenciones
-2. Git
-    2.1. Rasteo
-    2.2. Creando el repositorio
-    2.3. El Stage
-    2.4 Commits
-    2.5. Volviendo en el tiempo
-        2.5.1. Resets
-        2.5.2. Revert
-        2.5.3 Checkout
-    2.6. Ramas
-        2.6.1 Crear y unir ramas
-        2.6.2. Conflictos
-3. Github
-    3.1 Beneficios de la Universidad
-    3.2 Crear una cuenta
-    3.3 Iniciar un repositorio
-    3.4 Clonar
-    3.5 Añadir colaboradores
-    3.6 Push
-    3.7 Pull
-4. Comentarios finales.
+* Convenciones
+* Git
+    * Rasteo
+    * Creando el repositorio
+    * El Stage
+    * Commits
+    * Volviendo en el tiempo
+        * Resets
+        * Revert
+        * Checkout
+    * Ramas
+        * Crear y unir ramas
+        * Conflictos
+* Github
+    * Beneficios de la Universidad
+    * Crear una cuenta
+    * Iniciar un repositorio
+    * Clonar
+    * Añadir colaboradores
+    * Push
+    * Pull
+* Comentarios finales.
 
 # Convenciones 
 
