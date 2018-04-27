@@ -1,4 +1,29 @@
-# Convenciones
+# Tabla de Contenido:
+
+1. Convenciones
+2. Git
+    2.1. Rasteo
+    2.2. Creando el repositorio
+    2.3. El Stage
+    2.4 Commits
+    2.5. Volviendo en el tiempo
+        2.5.1. Resets
+        2.5.2. Revert
+        2.5.3 Checkout
+    2.6. Ramas
+        2.6.1 Crear y unir ramas
+        2.6.2. Conflictos
+3. Github
+    3.1 Beneficios de la Universidad
+    3.2 Crear una cuenta
+    3.3 Iniciar un repositorio
+    3.4 Clonar
+    3.5 Añadir colaboradores
+    3.6 Push
+    3.7 Pull
+4. Comentarios finales.
+
+# Convenciones 
 
 Antes de comenzar, deberán tener en cuenta las siguientes convenciones, no se asusten, ya veremos de que trata cada una.
 
@@ -6,7 +31,7 @@ Antes de comenzar, deberán tener en cuenta las siguientes convenciones, no se a
 
 # Git
 
-## Rastreo
+## Rastreo 
 Comenzaremos tratando Git de su forma local, nos independizaremos completamente del internet, y esa es su mayor ventaja, tratar control de versiones de forma offline.
 
 Git en sí es un controlador de versiones que se encargará de llevar rastro del trabajo de un proyecto, principalmente de momentos los cuales llamaremos **commits**
@@ -904,9 +929,7 @@ int main(void) {
   return 0;
 }
 ```
-
 O comentando una linea que divida el documento y cada rama sepa dónde va a trabajar.
-
 ```c
 #include <stdio.h>
 
@@ -923,6 +946,189 @@ int main(void) {
 ```
 Y otras formas más creativas de saber que hará qué antes de dividir el árbol. A veces es inevitable, quizás alguien borró por accidente una linea que otro usaba o ambos llamaron una variable que cumple la misma tarea con otro nombre, pero siempre tener a la mano qué dejar a la hora de que hayan conflictos.
 
+# Github 
+Ahora hablemos de Github, existen otras alternativas como Bitbucket, pero Github es la más popular. Github es un sitio web dedicado al desarrollo colaborativo y colocar repositorios en linea de nabera pública, tal y como el que están leyendo ahora.
+
+## Beneficios de la Universidad
+
+El ser estudiante de La Universidad Nacional de Colombia trae consigo ciertos [beneficios y recursos a los cuales los estudiantes pueden acceder](http://www.pasaralaunacional.com/2017/02/software-beneficios-gratis-convenios-unal.html) entre ellos los que nos interesa hoy es el [Student Developer Pack](https://education.github.com/pack) que nos ofrece Github, de los cuales por ahora nos interesan los siguientes dos:
+
+![Github](https://pbs.twimg.com/media/Dbywu08W4AU8nhl.jpg)
+
+1. Una cuenta premium en Github que nos sirve para crear repositorios privados
+2. Una cuenta premium para poder usar GitKraken, una interfaz gráfica para utilizar todas las opciones de Git de forma más directa y representar el árbol de una forma más cómoda.
+
+Pueden usar el software que deseen o seguir haciendo todo el proceso de Git de forma manual, es solo una recomendación personal.
+
+Estos beneficios se pueden obtener siempre y cuando la cuenta de Github esté asociada a la Universidad
+
+## Crear una cuenta
+
+Una sección de sobra, lo único que deben hacer es crear una cuenta para poder usarla, con el correo de la universidad. Lo único que les recomiendo es **crear un usuario con el mismo nombre de su usuario de la universidad**, esto para que sea más facil de encotrarlos en la plataforma y asociarlos más facilmente a la hora de presentar trabajos relacionados con Git.
+
+## Iniciar Un Repositorio
+
+Una vez creada la cuenta, hay varias opciones para iniciar un nuevo proyecto:
+
+![crear](https://pbs.twimg.com/media/Dby1I4SWkAE_enT.jpg)
+
+Una vez le demos click a esta opción, se nos pedirá información básica:
+
+![info](https://pbs.twimg.com/media/Dby1I4VXkAcWkNa.jpg)
+
+1. Nombre
+2. Descripción
+3. ¿Público o Privado?, es decir, ¿Lo podrán ver todos o solo los colaboradores?
+4. README.md
+
+El README.md es un archivo tipo _Markdown_ que describe el proyecto o documentación general, como por ejemplo, esto que estás leyendo. **ÚNICAMENTE** deben darle click a esta opción si el proyecto es **completamente nuevo.**
+
+¿A qué se refiere con completamente nuevo?
+
+Cuando le damos click a _"Create Repository"_ nos saldrá la siquiente ventana
+
+![start](https://pbs.twimg.com/media/Dby1I4TWAAAAc37.jpg)
+
+Analizaremos cada una de estas opciones:
+1. **Quick Setup:** Se proporciona un Link HTTPS o un SSH para vincular rápidamente nuestro repositorio. Ignoraremos el SSH, nos intereza el HTTPS, lo único que debemos hacer es ir a donde queremos nuestro repositorio y escribiremos el comando ```$ git clone url```:
+    ```console
+    $ git clone https://github.com/juasmartinezbel/Mi_Repositorio.git
+    Clonar en «Mi_Repositorio»...
+    warning: Parece que ha clonado un repositorio vacío.
+    Comprobando la conectividad… hecho.
+    ```
+    Se nos creará un directorio llamado igual que el repositorio, es la manera más fácil [y mi opinión personal, la más práctica] de crear un repositorio
+    
+    A esto se le llama crear un repositorio **completamente nuevo.** Si hubieran querido, el README.md pudo haber sido creado aquí sin ningún problema.
+2. **Crear repositorio localmente:** La opción 2 y 3 son la misma en teoría ya que ambas utilizan el mismo comando: ```$ git remote add origin url```, la diferencia es que la opción 2 si el repositorio es completamente virgen, mientras que la opción 3 es si ya habíamos trabajado anteriormente, por ejemplo, nuestro proyecto de Suma y Resta. 
+    ```console
+    /Branches$ git remote add origin https://github.com/juasmartinezbel/Mi_Repositorio.git
+    
+    /Branches$ git push -u origin master
+    Username for 'https://github.com': juasmartinezbel
+    Password for 'https://juasmartinezbel@github.com': 
+    Counting objects: 28, done.
+    Delta compression using up to 2 threads.
+    Compressing objects: 100% (26/26), done.
+    Writing objects: 100% (28/28), 4.78 KiB | 0 bytes/s, done.
+    Total 28 (delta 9), reused 0 (delta 0)
+    remote: Resolving deltas: 100% (9/9), done.
+    To https://github.com/juasmartinezbel/Mi_Repositorio.git
+     * [new branch]      master -> master
+    Branch master set up to track remote branch master from origin.
+    ```
+    Esta opción quedó clara que sirve más que nada para cuando deseamos subir un repositorio en el que ya hemos trabajado, si es un repositorio completamente nuevo, mejor utilizar el ```clone```. Al usar  ```$ git remore add origin url``` tampoco importa el nombre del repositorio que tenemos localmente.
+    
+    ![new](https://pbs.twimg.com/media/Dby4SMNXcAAKh81.jpg)
+    
+    ![new](https://pbs.twimg.com/media/Dby4SOfWAAEVNXd.jpg)
+3. **Importar código:** Se trata de importar código de otro repositorio repositorio, autoexplicativo, así que no lo trataremos en detalle.
+
+## Clonar
+
+Ya vimos un comando que se llamaba ```$ git clone url```, y ya se pueden hacer una idea para qué sirve, **colocar un repositorio de Github en nuestra computadora**, podemos tomar cualquier código, de quien sea, siempre y cuando sea público, y clonarlo en nuestras máquinas, nada más hay que copiar el enlace propocionado en el repositorio:
+
+![clone](https://pbs.twimg.com/media/Dby5yWPWkAE2m2b.jpg)
+
+Hay que tener en cuenta una cosa, únicamente podremos colaborar en el repositorio si **somos colaboradores**. Podemos hacer los cambios que queramos localmente, claro, pero no subirlo al mismo repositorio.
+
+Existe, sin embargo, algo que se llama **Fork** y **Pull Request**, que sirven para colaboraciones masivas y que el dueño del repositorio vea tus cambios propuestos, pero no los trataremos en este curso.
+
+## Añadir Colaboradores
+
+Si en nuestro proyecto vamos a _Settings>Collaborators_, podremos agregar a las personas que deseamos colaboren en nuestro proyecto. Les llegará una invitación a su correo dónde podrán aceptar la invitación. Si no, podrán enviar el link del repositorio para aceptar la invitación. Por esto mi recomendación de llamarse igual a su usuario de la universidad, es más facil de encontrar.
+
+![sc](https://pbs.twimg.com/media/Dby67GRXkAAmJ0A.jpg)
+
+Las personas añadidas como colaboradores son las que podrán colaborar libremente en el repositorio, aunque el dueño seguirá siendo el mismo.
+
+Existen también las organizaciones, donde un grupo de personas podrá colaborar en proyectos comunes con un fin similar, esto se usa para grupos de 4 o más personas y tengan que trabajar colaborativamente en varios trabajos juntos.
+
+![org](https://pbs.twimg.com/media/Dby8Pv5WsAAJqzg.jpg)
+
+## Push
+
+Una vez nuestro proyecto está creado y hemos trabajado, ```Push``` servirá para colocar nuestros cambios en Github, _"Empujarlos"_ hacia la nube por así decirlo.
+
+![nube](https://pbs.twimg.com/media/Dby9yL5X0AAETKt.png)
+
+Supongamos que nuestro repositorio está subido hasta el momento en que hicimos merge, sin embargo, hicimos dos commits en nuestra computadora, esto quiere decir que **_La cabeza local_** está dos commits más adelante que **_la cabeza del repositorio_**, dependiendo de la rama en la que estemos
+
+```console
+$ git status
+En la rama master
+Su rama está delante de «origin/master» para 2 commits.
+  (use "git push" to publish your local commits)
+nothing to commit, working directory clean
+```
+![local](https://pbs.twimg.com/media/Dby_G2PXUAEfGiX.png)
+
+Si deseamos subir nuestros cambios, solamente debemos escribir el comando ```$ git push -u origin branch_name```
+
+En este caso, estamos en la rama ```master```
+
+```console
+$ git push -u origin master
+Username for 'https://github.com': juasmartinezbel
+Password for 'https://juasmartinezbel@github.com': 
+Counting objects: 4, done.
+Delta compression using up to 2 threads.
+Compressing objects: 100% (4/4), done.
+Writing objects: 100% (4/4), 473 bytes | 0 bytes/s, done.
+Total 4 (delta 2), reused 0 (delta 0)
+remote: Resolving deltas: 100% (2/2), completed with 1 local object.
+To https://github.com/juasmartinezbel/Mi_Repositorio.git
+   c749b42..17dc062  master -> master
+Branch master set up to track remote branch master from origin.
 ```
 
+Y así, las cabezas local y remota estarán igualadas.
 
+```console
+$ git status
+En la rama master
+Su rama está actualizada con «origin/master».
+nothing to commit, working directory clean
+```
+
+![update](https://pbs.twimg.com/media/Dby_OKoXcAEfLyE.png)
+
+``
+
+
+## Pull
+
+Existe algo llamado ```Pull```, que como se imaginarán, hace lo opuesto a ```Push```, que es descargar cambios remotos a la máquina, ya sea porque un compañero lo hizo, o trabajé en otra máquina, o se me dio por editar los archivos en Github
+
+![pull](https://pbs.twimg.com/media/Dby9ydCW0AYUjnt.png)
+
+Existe un comando llamado ```Fetch``` que crea una rama imaginaria llamada ```FETCH_HEAD``` a la cual se le hace ```merge``` a la rama dónde estaban los cambios en Github, ```Pull``` se existe de resumir este proceso y bajar todo directamente a la rama.
+
+Supongamos que tenemos un escenario donde nuestro compañero hizo dos commits en master, y deseamos bajarlos a nuestra máquina, sabemos que esos commits están ahí:
+
+```console
+$ git status
+En la rama master
+Your branch is behind 'origin/master' by 2 commits, and can be fast-forwarded.
+  (use "git pull" to update your local branch)
+nothing to commit, working directory clean
+```
+![update](https://pbs.twimg.com/media/DbzCaQTXUAAhxxH.png)
+
+Lo único que debemos hacer es pararnos en la rama y escribir el comando ```$ git pull```
+```
+$ git pull
+Updating 17dc062..e79faef
+Fast-forward
+ d | 155 +
+ e | 213 +
+ 2 files changed, 368 insertions(+)
+```
+
+![update](https://pbs.twimg.com/media/DbzCaqUWkAEaAzh.png)
+
+Y estaremos finalmente actualizados.
+
+# Comentarios Finales: 
+
+Hasta aquí Git básico, si bien, dejé varias cosas por fuera como ya había mencionado antes, por ejemplo lo de Fork y Pull Request, y también me falta aprender varias cosas relacionadas a los muchisimos comandos que tiene Git, esta es la forma más básica y práctica de utilizarlo y que servirán para sus futuras prácticas.

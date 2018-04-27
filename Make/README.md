@@ -1,3 +1,17 @@
+# Contenido
+1. Make
+2. Tareas y Estructura
+    2.1. Objetivo
+    2.2. Dependencias
+    2.3. Comandos
+3. Pongamonos Serios
+4. Makes para los demás ejemplos
+    4.1. Ejemplo 2
+    4.2. Ejemplo 3
+    4.3. Caso fuerte
+5. Variables
+6. Comentarios Finales
+
 # Make
 Make es una utilidad para automatizar la compilación de programas y librerías, así como automatizar la ejecución de comandos en general.
 
@@ -6,6 +20,7 @@ Un archivo de nombre ```Makefile```, ```makefile``` o ```GNUmakefile``` a secas 
 ```console
 PC@PC-234we56t:~directorio_donde_esta_el_make$ make
 ```
+# Tareas y Estructura
 
 Las tareas de make se crean en base a la siguiente estructura.
 
@@ -339,7 +354,7 @@ limpiar:
 
 Y ahora crearemos makefiles para los ejemplos [**Ejemplo 2** y **Ejemplo 3**](https://github.com/juasmartinezbel/SISTEMAS_OPERATIVOS_CLASE/blob/master/Compilar%20en%20C/README.md) con las indicaciones dadas en esos archivos
 
-Primero el **Ejemplo 2**
+### Ejemplo 2
 ```make
 ejecutar: exe2
         reset
@@ -354,7 +369,7 @@ clear:
 
 Nada raro aquí, únicamente añadimos el ```-lm``` al final del comando para compilar.
 
-Ahora vamos con el **Ejemplo 3**
+### Ejemplo 3
 ```make
 ejecutar: exe3
         reset
@@ -494,4 +509,5 @@ Como podemos ver, utilizamos las variables para no solo algunos nombres, sino pa
 
 Para su práctica es necesario que implemente esta metodología de variables.
 
+# Comentarios Finales
 Hasta aquí el tema de Make, si tienen alguna duda pueden escribirme o [revisar este archivo en la página del curso](https://drive.google.com/file/d/0B421IcV2wvd8Z0xLeHMzR2hjWWc/view)
