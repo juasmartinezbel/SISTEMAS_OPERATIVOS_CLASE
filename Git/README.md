@@ -212,7 +212,7 @@ Supongamos que **i** es un log que me registra cada cosa que hago y crece megaby
 
 ```bash
 i
-*tm
+*.tm
 ```
 
 ```console
